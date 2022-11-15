@@ -40,18 +40,10 @@ public class BookServiceImpl implements BookService {
         this.authorRepository = authorRepository;
     }
 
-    /**
-     *
-     * @param bookId
-     * @return
-     */
-
     @Override
     public Object getBookById(Integer bookId) {
 //        BookDetailResponsePojo bookDetailResponsePojo = bookDetailMapper.getBookById(bookId);
         return bookRepository.findById(bookId);
-
-
     }
 
     @Override

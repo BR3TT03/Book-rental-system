@@ -35,7 +35,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Object getAuthorById(Integer authorId) {
-        return authorRepository.findById(authorId);
+        AuthorDetailResponsePojo authorDetailResponsePojo = authorDetailMapper.getAuthorById(authorId);
+        return authorDetailResponsePojo;
     }
 
     @Override
