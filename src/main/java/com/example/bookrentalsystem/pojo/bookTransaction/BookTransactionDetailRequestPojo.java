@@ -1,4 +1,4 @@
-package com.example.bookrentalsystem.pojo;
+package com.example.bookrentalsystem.pojo.bookTransaction;
 
 
 import com.example.bookrentalsystem.enums.RentType;
@@ -24,21 +24,18 @@ public class BookTransactionDetailRequestPojo {
 
     private Integer bookTransactionId;
 
-    @NotNull
+
     private Integer bookId;
 
-    private String code;
 
-    private LocalDate fromDate;
 
     private LocalDate toDate;
 
 
     private RentType rentType;
 
-    @NotNull
+
     private Integer memberId;
 
-    private String status;
 }
 

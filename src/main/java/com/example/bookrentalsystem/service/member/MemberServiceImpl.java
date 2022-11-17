@@ -2,7 +2,7 @@ package com.example.bookrentalsystem.service.member;
 
 import com.example.bookrentalsystem.mapper.MemberDetailMapper;
 import com.example.bookrentalsystem.model.Member;
-import com.example.bookrentalsystem.pojo.MemberDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.member.MemberDetailRequestPojo;
 import com.example.bookrentalsystem.repository.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -30,12 +30,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Object getMemberById(Integer memberId) {
-        return  memberDetailMapper.findMemberById(memberId);
+        return  memberRepository.findById(memberId);
     }
 
     @Override
     public void saveMemberDetails(MemberDetailRequestPojo memberDetailRequestPojo) {
-        Member member = null;
+        Member member;
         if (memberDetailRequestPojo.getMemberId()!= null)
             member = memberRepository.findById(memberDetailRequestPojo.getMemberId()).orElse(new Member());
         member = objectMapper.convertValue(memberDetailRequestPojo, Member.class);

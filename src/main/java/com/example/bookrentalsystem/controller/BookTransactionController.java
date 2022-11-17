@@ -1,16 +1,19 @@
 package com.example.bookrentalsystem.controller;
 
+import com.example.bookrentalsystem.pojo.api.ApiResponse;
+import com.example.bookrentalsystem.pojo.api.BaseController;
 import com.example.bookrentalsystem.globalException.AppException;
-import com.example.bookrentalsystem.pojo.ApiResponse;
-import com.example.bookrentalsystem.pojo.BookTransactionDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.bookTransaction.BookTransactionDetailRequestPojo;
 import com.example.bookrentalsystem.service.booktransaction.BookTransactionService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("bookrent/booktransaction")
-public class BookTransactionController extends ApiResponse {
+public class BookTransactionController extends BaseController {
     private final BookTransactionService bookTransactionService;
 
     public BookTransactionController(BookTransactionService bookTransactionService) {
@@ -23,16 +26,14 @@ public class BookTransactionController extends ApiResponse {
         return success(get("data.get","Book Transaction"), bookTransactionService.getBookTransaction());
     }
 
-    @PostMapping()
-    public ApiResponse saveBookTransactionDetails(@RequestBody @Valid BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo) throws AppException {
-        bookTransactionService.saveBookTransactionDetails(bookTransactionDetailRequestPojo);
-        return success(get("data.save","Book Transaction"), null);
-    }
 
     @PostMapping("rent-book")
     public ApiResponse rentBookTransaction(@RequestBody @Valid BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo) throws AppException {
         bookTransactionService.addNewTransaction(bookTransactionDetailRequestPojo);
-        return success(get("book.rent"), null);
+        if (bookTransactionDetailRequestPojo.getRentType().toString().equalsIgnoreCase("RENT"))
+         return success(get("book.rent"), null);
+        else
+            return  success(get("book.return"),null);
     }
     @PostMapping("return-book")
     public ApiResponse returnABookTransaction(@RequestBody @Valid BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo){

@@ -2,8 +2,8 @@ package com.example.bookrentalsystem.service.author;
 
 import com.example.bookrentalsystem.mapper.AuthorDetailMapper;
 import com.example.bookrentalsystem.model.Author;
-import com.example.bookrentalsystem.pojo.AuthorDetailRequestPojo;
-import com.example.bookrentalsystem.pojo.AuthorDetailResponsePojo;
+import com.example.bookrentalsystem.pojo.author.AuthorDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.author.AuthorDetailResponsePojo;
 import com.example.bookrentalsystem.repository.AuthorRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -35,8 +35,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Object getAuthorById(Integer authorId) {
-        AuthorDetailResponsePojo authorDetailResponsePojo = authorDetailMapper.getAuthorById(authorId);
-        return authorDetailResponsePojo;
+        return authorRepository.findById(authorId);
     }
 
     @Override
