@@ -18,7 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -101,14 +104,34 @@ public class BookTransactionServiceImpl implements BookTransactionService {
 
       }
        else if (bookTransactionDetailRequestPojo.getRentType().toString().equalsIgnoreCase("RETURN")) {
-           bookTransactionRepository.updateBookReturnTransaction(bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
-          bookRepository.updateBookReturn(bookTransactionDetailRequestPojo.getBookId());
+            LocalDate returnDate =java.time.LocalDate.now();
+           bookTransactionRepository.updateBookReturnTransaction(returnDate,bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
+           bookRepository.updateBookReturn(bookTransactionDetailRequestPojo.getBookId());
       }
     }
+
+    @Override
+    public BookTransaction getBookTransactionByMemberId(Integer memberId) {
+            return bookTransactionRepository.getBookTransactionByMemberId(memberId);
+
+    }
+
     @Transactional
     @Override
     public void addReturnTransaction(BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo) {
-        bookTransactionRepository.updateBookReturnTransaction(bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
+        LocalDate returnDate=java.time.LocalDate.now();
+        bookTransactionRepository.updateBookReturnTransaction(returnDate,bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
         bookRepository.updateBookReturn(bookTransactionDetailRequestPojo.getBookId());
+    }
+
+    @Override
+    public void deleteBookTransactionById(Integer bookTransactionId) throws AppException {
+        Optional<BookTransaction> exists=bookTransactionRepository.findById(bookTransactionId);
+        if (!exists.isPresent()){
+            throw new AppException("Book Transaction doesnot exist by given" +bookTransactionId +" book Transaction id.");
+        }
+        else if (exists.isPresent()){
+            bookTransactionRepository.deleteById(bookTransactionId);
+        }
     }
 }

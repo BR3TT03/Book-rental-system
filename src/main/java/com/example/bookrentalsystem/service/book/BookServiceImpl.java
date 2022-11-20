@@ -6,7 +6,6 @@ import com.example.bookrentalsystem.model.Author;
 import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.model.Category;
 import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
-import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
 import com.example.bookrentalsystem.repository.AuthorRepository;
 import com.example.bookrentalsystem.repository.BookRepository;
 import com.example.bookrentalsystem.repository.CategoryRepository;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -55,6 +55,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public void saveBookDetails(BookDetailRequestPojo bookDetailRequestPojo) throws Exception {
 
         Book book;
@@ -96,5 +97,17 @@ public class BookServiceImpl implements BookService {
         Category category = categoryRepository.findById(bookDetailRequestPojo.getCategoryId()).orElseThrow(() -> new RuntimeException("Category does not exist by category id"));
         List<Author> authors = authorRepository.findAllById(bookDetailRequestPojo.getAuthorId());
         bookRepository.updateBookStock(bookDetailRequestPojo.getBookId(), bookDetailRequestPojo.getStockCount());
+    }
+
+    @Override
+    public void deleteBookById(Integer bookId) throws AppException {
+        Optional<Book> exists=bookRepository.findById(bookId);
+        if (!exists.isPresent()){
+            throw new AppException("Book does not exist by given "+ bookId +" book Id");
+        }
+        else if (exists.isPresent()){
+            bookRepository.deleteById(bookId);
+        }
+
     }
 }

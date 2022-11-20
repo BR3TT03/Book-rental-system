@@ -12,7 +12,7 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*")
 
 @RestController
-@RequestMapping("bookrent/booktransaction")
+@RequestMapping("bookrental/booktransaction")
 public class BookTransactionController extends BaseController {
     private final BookTransactionService bookTransactionService;
 
@@ -27,7 +27,7 @@ public class BookTransactionController extends BaseController {
     }
 
 
-    @PostMapping("rent-book")
+    @PostMapping("add-book-transaction")
     public ApiResponse rentBookTransaction(@RequestBody @Valid BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo) throws AppException {
         bookTransactionService.addNewTransaction(bookTransactionDetailRequestPojo);
         if (bookTransactionDetailRequestPojo.getRentType().toString().equalsIgnoreCase("RENT"))
@@ -35,14 +35,20 @@ public class BookTransactionController extends BaseController {
         else
             return  success(get("book.return"),null);
     }
-    @PostMapping("return-book")
-    public ApiResponse returnABookTransaction(@RequestBody @Valid BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo){
-        bookTransactionService.addReturnTransaction(bookTransactionDetailRequestPojo);
-        return success(get("book.return"),null);
-    }
+//    @PostMapping("return-book")
+//    public ApiResponse returnABookTransaction(@RequestBody @Valid BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo){
+//        bookTransactionService.addReturnTransaction(bookTransactionDetailRequestPojo);
+//        return success(get("book.return"),null);
+//    }
 
     @GetMapping("/{memberid}")
     public ApiResponse getBookTransactionByMemberId(@PathVariable(name = "memberid") Integer memberId) {
-        return success(get("data.get","Book Transaction"), bookTransactionService.getBookTransactionById(memberId));
+        return success(get("data.get","Book Transaction"), bookTransactionService.getBookTransactionByMemberId(memberId));
+    }
+
+    @DeleteMapping("/{booktransactionid}")
+    public ApiResponse deleteBookTransactionById(@PathVariable(name = "booktransactionid") Integer bookTransactionId) throws AppException {
+        bookTransactionService.deleteBookTransactionById(bookTransactionId);
+        return success(get("data.delete"," Book transaction"),null);
     }
 }
