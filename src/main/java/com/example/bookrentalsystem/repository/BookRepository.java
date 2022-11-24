@@ -1,6 +1,7 @@
 package com.example.bookrentalsystem.repository;
 
 import com.example.bookrentalsystem.model.Book;
+import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

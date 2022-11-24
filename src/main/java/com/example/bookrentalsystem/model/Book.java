@@ -46,19 +46,18 @@ public class Book {
 
     private LocalDate publishedDate;
 
-    @Column(name = "photo",columnDefinition = "TEXT")
+    @Column(name = "photo", columnDefinition = "TEXT")
 
     private String imagePath;
 
-    @ManyToOne(targetEntity = Category.class,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Category.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", foreignKey = @ForeignKey(name = "FK_book_category"))
-    private  Category category;
+    private Category category;
 
 
-    @ManyToMany(targetEntity = Author.class,cascade = CascadeType.ALL)
-    @JoinColumn(name ="author_id",referencedColumnName = "author_id")
-    private List<Author>  author;
-
+    @ManyToMany(targetEntity = Author.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id", referencedColumnName = "author_id")
+    private List<Author> author;
 
 }
 

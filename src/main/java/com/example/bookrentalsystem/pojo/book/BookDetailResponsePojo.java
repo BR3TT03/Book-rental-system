@@ -17,23 +17,20 @@ public class BookDetailResponsePojo {
     private Integer bookId;
 
     private String bookName;
-
-
-    private Integer noOfPages;
-
+    private String photo;
 
     private String isbn;
 
 
-    private double rating;
-
-
-    private Integer stockCount;
+    private Integer noOfPages;
 
     private Date publishedDate;
 
 
-    private String photo;
+    private double rating;
+
+    private Integer stockCount;
+
 
 
     private Integer categoryId;

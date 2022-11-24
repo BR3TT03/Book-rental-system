@@ -5,7 +5,9 @@ import com.example.bookrentalsystem.mapper.BookDetailMapper;
 import com.example.bookrentalsystem.model.Author;
 import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.model.Category;
+import com.example.bookrentalsystem.pojo.book.BookDetailIdNameResponsePojo;
 import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
 import com.example.bookrentalsystem.repository.AuthorRepository;
 import com.example.bookrentalsystem.repository.BookRepository;
 import com.example.bookrentalsystem.repository.CategoryRepository;
@@ -32,12 +34,14 @@ public class BookServiceImpl implements BookService {
 
     private final AuthorRepository authorRepository;
 
-    public BookServiceImpl(BookRepository bookRepository, ObjectMapper objectMapper, BookDetailMapper bookDetailMapper, CategoryRepository categoryRepository, AuthorRepository authorRepository) {
+    private final BookDetailResponsePojo bookDetailResponsePojo;
+    public BookServiceImpl(BookRepository bookRepository, ObjectMapper objectMapper, BookDetailMapper bookDetailMapper, CategoryRepository categoryRepository, AuthorRepository authorRepository, BookDetailResponsePojo bookDetailResponsePojo) {
         this.bookRepository = bookRepository;
         this.objectMapper = objectMapper;
         this.bookDetailMapper = bookDetailMapper;
         this.categoryRepository = categoryRepository;
         this.authorRepository = authorRepository;
+        this.bookDetailResponsePojo = bookDetailResponsePojo;
     }
 
     /**
@@ -87,8 +91,8 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public List<Book> getBook() {
-        return bookRepository.findAll();
+    public List<BookDetailResponsePojo> getBook() {
+        return bookDetailMapper.getBook();
     }
 
     @Transactional
@@ -112,7 +116,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBookIdName() {
+    public List<BookDetailIdNameResponsePojo> getBookIdName() {
         return bookDetailMapper.getBookIdName();
     }
 }

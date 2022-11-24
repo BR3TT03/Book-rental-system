@@ -22,6 +22,8 @@ public interface BookTransactionRepository extends JpaRepository<BookTransaction
 //    Optional<Object> finBookById(Integer bookId);
 
     @Query(value = "select * from tbl_book_transaction where \"member_id\"=?1",nativeQuery = true)
+//    @Query(value = "select bool_transaction_id,code,from_date,rent_status,return_date,to_date," +
+//            "")
     List<BookTransaction> getBookTransactionByMemberId(Integer memberId);
 
 

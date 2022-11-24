@@ -1,11 +1,12 @@
 package com.example.bookrentalsystem.mapper;
 
 import com.example.bookrentalsystem.model.Book;
+import com.example.bookrentalsystem.pojo.book.BookDetailIdNameResponsePojo;
 import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
 import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.data.jpa.repository.Query;
+
 
 import java.util.List;
 
@@ -13,6 +14,9 @@ import java.util.List;
 public interface BookDetailMapper {
     @Select("select * from tbl_book where \"book_id\"=#{bookId}")
     BookDetailResponsePojo getBookById(Integer bookId);
+    @Select("select book_id,book_name,photo , isbn,no_of_pages,published_date,rating,stock_count,category_id from tbl_book ")
+    List<BookDetailResponsePojo> getBook();
+
 
 
 
@@ -24,5 +28,6 @@ public interface BookDetailMapper {
     Integer getBookCount(Integer bookId);
 
     @Select("select book_id as bookId, book_name as bookName from tbl_book")
-    List<Book> getBookIdName();
+
+    List<BookDetailIdNameResponsePojo> getBookIdName();
 }
