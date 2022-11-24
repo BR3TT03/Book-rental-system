@@ -1,7 +1,6 @@
 package com.example.bookrentalsystem.service.booktransaction;
 
 
-import com.example.bookrentalsystem.enums.RentType;
 import com.example.bookrentalsystem.globalException.AppException;
 import com.example.bookrentalsystem.mapper.BookDetailMapper;
 import com.example.bookrentalsystem.mapper.BookTransactionDetailMapper;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,14 +51,14 @@ public class BookTransactionServiceImpl implements BookTransactionService {
     }
 
     @Override
-    public Object getBookTransactionById(Integer bookTransactionId) {
-        return bookTransactionRepository.findById(bookTransactionId);
+    public BookTransactionDetailResponsePojo getBookTransactionById(Integer bookTransactionId) throws AppException {
+        return bookTransactionDetailMapper.getBookTransactionByTransactionId(bookTransactionId).orElseThrow(()->new AppException("Book transaction does not exist by given id."));
     }
 
 
     @Override
-    public List<BookTransaction> getBookTransaction() {
-        return bookTransactionRepository.findAll();
+    public List<BookTransactionDetailResponsePojo> getBookTransaction() {
+        return bookTransactionDetailMapper.getAllTransaction();
     }
 
 
@@ -112,9 +110,8 @@ public class BookTransactionServiceImpl implements BookTransactionService {
     }
 
     @Override
-    public List<BookTransactionDetailResponsePojo> getBookTransactionByMemberId(Integer memberId) {
-                return bookTransactionDetailMapper.getBookTransactionByMemberId(memberId);
-
+    public List<BookTransactionDetailResponsePojo> getBookTransactionByMemberId(Integer memberId) throws AppException {
+                return bookTransactionDetailMapper.getBookTransactionByMemberId(memberId).orElseThrow(()->new AppException("Book Transaction does not exist by given member id"));
     }
 
     @Transactional

@@ -42,7 +42,7 @@ public class BookTransactionController extends BaseController {
 //    }
 
     @GetMapping("/{memberid}")
-    public ApiResponse getBookTransactionByMemberId(@PathVariable(name = "memberid") Integer memberId) {
+    public ApiResponse getBookTransactionByMemberId(@PathVariable(name = "memberid") Integer memberId) throws AppException {
         return success(get("data.get","Book Transaction"), bookTransactionService.getBookTransactionByMemberId(memberId));
     }
 

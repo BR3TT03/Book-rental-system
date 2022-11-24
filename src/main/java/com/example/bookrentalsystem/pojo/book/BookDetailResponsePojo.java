@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,11 +19,13 @@ public class BookDetailResponsePojo {
 
     private String bookName;
 
+    private String photo;
+
+    private String isbn;
 
     private Integer noOfPages;
 
-
-    private String isbn;
+    private Date publishedDate;
 
 
     private double rating;
@@ -30,11 +33,11 @@ public class BookDetailResponsePojo {
 
     private Integer stockCount;
 
-    private Date publishedDate;
-
-
-    private String photo;
-
-
     private Integer categoryId;
+
+    private String categoryName;
+
+    private Integer authorId;
+
+    private String authorName;
 }

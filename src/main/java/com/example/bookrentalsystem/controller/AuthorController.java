@@ -40,7 +40,7 @@ public class AuthorController extends BaseController {
     }
 
     @GetMapping("/{authorid}")
-    public ApiResponse getAuthorById(@PathVariable(name = "authorid") Integer authorId) {
+    public ApiResponse getAuthorById(@PathVariable(name = "authorid") Integer authorId) throws AppException {
         return success(get("data.get","Author"), authorService.getAuthorById(authorId));
     }
 

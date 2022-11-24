@@ -4,6 +4,7 @@ import com.example.bookrentalsystem.globalException.AppException;
 import com.example.bookrentalsystem.mapper.MemberDetailMapper;
 import com.example.bookrentalsystem.model.Member;
 import com.example.bookrentalsystem.pojo.member.MemberDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.member.MemberDetailResponsePojo;
 import com.example.bookrentalsystem.repository.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public Object getMemberById(Integer memberId) {
-        return  memberRepository.findById(memberId);
+    public MemberDetailResponsePojo getMemberById(Integer memberId) throws AppException {
+        return  memberDetailMapper.getMemberById(memberId).orElseThrow(()->new AppException("Member doesnot exist by given member id."));
     }
 
     @Override
@@ -46,8 +47,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> getMember() {
-        return memberRepository.findAll();
+    public List<MemberDetailResponsePojo> getMember() {
+        return memberDetailMapper.getAllMember();
     }
 
     @Override

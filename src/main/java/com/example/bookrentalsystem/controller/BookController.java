@@ -42,7 +42,7 @@ public class BookController extends BaseController {
     }
 
     @GetMapping("/{bookid}")
-    public ApiResponse getBookById(@PathVariable(name = "bookid") Integer bookId) {
+    public ApiResponse getBookById(@PathVariable(name = "bookid") Integer bookId) throws AppException {
         return success(get("data.get","Book"), bookService.getBookById(bookId));
     }
     @PostMapping("update-stock")

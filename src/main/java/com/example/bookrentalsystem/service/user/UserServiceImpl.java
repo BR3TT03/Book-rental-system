@@ -4,6 +4,7 @@ import com.example.bookrentalsystem.globalException.AppException;
 import com.example.bookrentalsystem.mapper.UserDetailMapper;
 import com.example.bookrentalsystem.model.User;
 import com.example.bookrentalsystem.pojo.user.UserDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.user.UserDetailResponsePojo;
 import com.example.bookrentalsystem.repository.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
 
     @Override
-    public Optional<User> findById(Integer id) {
-        return userRepo.findById(id);
+    public Optional<UserDetailResponsePojo> findById(Integer id) {
+        return userDetailMapper.findUserById(id);
     }
 
     @Override
@@ -40,13 +41,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object getUserByUserId(Integer userId) {
-        return userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found by given id"));
+    public UserDetailResponsePojo getUserByUserId(Integer userId) {
+        return userDetailMapper.findUserById(userId).orElseThrow(() -> new RuntimeException("User not found by given id"));
     }
 
     @Override
-    public User getUserByUserName(String userName) {
-        return userRepo.findUserByUserName(userName);
+    public UserDetailResponsePojo getUserByUserName(String userName) {
+        return userDetailMapper.findUserByUserName(userName);
     }
 
 
@@ -61,8 +62,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUser() {
-        return userRepo.findAll();
+    public List<UserDetailResponsePojo> getUser() {
+        return userDetailMapper.getAllUser();
     }
 
 }

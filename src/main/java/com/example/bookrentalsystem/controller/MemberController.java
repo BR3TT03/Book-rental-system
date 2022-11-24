@@ -38,7 +38,7 @@ public class MemberController extends BaseController {
     }
 
     @GetMapping("/{memberid}")
-    public ApiResponse getMemberById(@PathVariable(name = "memberid") Integer memberId) {
+    public ApiResponse getMemberById(@PathVariable(name = "memberid") Integer memberId) throws AppException {
         return success(get("data.get","Member"), memberService.getMemberById(memberId));
     }
 }

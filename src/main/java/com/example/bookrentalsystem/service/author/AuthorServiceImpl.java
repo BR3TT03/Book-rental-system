@@ -32,8 +32,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<Author> getAuthor() {
-        return authorRepository.findAll();
+    public List<AuthorDetailResponsePojo> getAuthor() {
+        return authorDetailMapper.getAllAuthor();
     }
 
     @Override
@@ -48,8 +48,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Object getAuthorById(Integer authorId) {
-        return authorRepository.findById(authorId);
+    public AuthorDetailResponsePojo getAuthorById(Integer authorId) throws AppException {
+        Optional<Author> exists = authorRepository.findById(authorId);
+        if (!exists.isPresent()) {
+            throw new AppException(("Author with given author id" + authorId + " doesnot exist"));
+        } else {
+            return authorDetailMapper.getAuthorById(authorId);
+        }
     }
 
     @Override

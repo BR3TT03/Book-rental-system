@@ -5,7 +5,9 @@ import com.example.bookrentalsystem.mapper.BookDetailMapper;
 import com.example.bookrentalsystem.model.Author;
 import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.model.Category;
+import com.example.bookrentalsystem.pojo.book.BookDetailIdNameResponsePojo;
 import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
 import com.example.bookrentalsystem.repository.AuthorRepository;
 import com.example.bookrentalsystem.repository.BookRepository;
 import com.example.bookrentalsystem.repository.CategoryRepository;
@@ -47,10 +49,8 @@ public class BookServiceImpl implements BookService {
      */
 
     @Override
-    public Object getBookById(Integer bookId) {
-//        BookDetailResponsePojo bookDetailResponsePojo = bookDetailMapper.getBookById(bookId);
-        return bookRepository.findById(bookId);
-
+    public BookDetailResponsePojo getBookById(Integer bookId) throws AppException {
+        return bookDetailMapper.getBookById(bookId).orElseThrow(()->new AppException("Book doesnot exist by given id."));
 
     }
 
@@ -87,8 +87,8 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public List<Book> getBook() {
-        return bookRepository.findAll();
+    public List<BookDetailResponsePojo> getBook() {
+        return bookDetailMapper.getAllBook();
     }
 
     @Transactional
@@ -112,7 +112,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBookIdName() {
+    public List<BookDetailIdNameResponsePojo> getBookIdName() {
         return bookDetailMapper.getBookIdName();
     }
 }

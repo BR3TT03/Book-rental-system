@@ -9,12 +9,12 @@ import com.example.bookrentalsystem.pojo.bookTransaction.BookTransactionDetailRe
 import java.util.List;
 
 public interface BookTransactionService {
-    Object getBookTransactionById(Integer bookTransactionId);
-    public List<BookTransaction> getBookTransaction();
+    BookTransactionDetailResponsePojo getBookTransactionById(Integer bookTransactionId) throws AppException;
+     List<BookTransactionDetailResponsePojo> getBookTransaction();
 
     void addNewTransaction(BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo) throws AppException;
 
-    List<BookTransactionDetailResponsePojo> getBookTransactionByMemberId(Integer memberId);
+    List<BookTransactionDetailResponsePojo> getBookTransactionByMemberId(Integer memberId) throws AppException;
 
     void addReturnTransaction(BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo);
 
