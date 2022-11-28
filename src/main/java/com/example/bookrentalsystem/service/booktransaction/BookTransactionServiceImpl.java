@@ -1,7 +1,6 @@
 package com.example.bookrentalsystem.service.booktransaction;
 
 
-import com.example.bookrentalsystem.enums.RentType;
 import com.example.bookrentalsystem.globalException.AppException;
 import com.example.bookrentalsystem.mapper.BookDetailMapper;
 import com.example.bookrentalsystem.mapper.BookTransactionDetailMapper;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +36,7 @@ public class BookTransactionServiceImpl implements BookTransactionService {
     private final BookDetailMapper bookDetailMapper;
 
     private final ObjectMapper objectMapper;
+
 
 
     public BookTransactionServiceImpl(BookRepository bookRepository, MemberRepository memberRepository, BookTransactionRepository bookTransactionRepository,
@@ -106,14 +105,23 @@ public class BookTransactionServiceImpl implements BookTransactionService {
       }
        else if (bookTransactionDetailRequestPojo.getRentType().toString().equalsIgnoreCase("RETURN")) {
             LocalDate returnDate =java.time.LocalDate.now();
-           bookTransactionRepository.updateBookReturnTransaction(returnDate,bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
+          Boolean rentStatus = bookTransactionDetailMapper.getReturnStatus(bookTransactionDetailRequestPojo.getMemberId(),bookTransactionDetailRequestPojo.getBookId());
+          if (rentStatus==null) {
+              throw new AppException("No Book Rented for given member id from the given book id.");
+
+          }
+          else if (!rentStatus) {
+              throw new AppException("Already returned");
+
+          }
+          bookTransactionRepository.updateBookReturnTransaction(returnDate,bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
            bookRepository.updateBookReturn(bookTransactionDetailRequestPojo.getBookId());
       }
     }
 
     @Override
     public List<BookTransactionDetailResponsePojo> getBookTransactionByMemberId(Integer memberId) {
-                return bookTransactionDetailMapper.getBookTransactionByMemberId(memberId);
+            return bookTransactionDetailMapper.getBookTransactionByMemberId(memberId);
 
     }
 
