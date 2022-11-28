@@ -1,12 +1,9 @@
 package com.example.bookrentalsystem.mapper;
 
-import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.pojo.book.BookDetailIdNameResponsePojo;
-import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
-import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
+import com.example.bookrentalsystem.pojo.book.BookDetailsPojo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +16,7 @@ public interface BookDetailMapper {
             "as authorName from tbl_book tb inner join tbl_category tc on tb.category_id=tc.category_id inner join\n" +
             "tbl_book_author tba on tb.book_id = tba.book_book_id inner join tbl_author ta on tba.author_author_id\n" +
             "= ta.author_id where tb.book_id=#{bookId}")
-    Optional<BookDetailResponsePojo> getBookById(Integer bookId);
+    Optional<BookDetailsPojo> getBookById(Integer bookId);
 
 
     @Select("select book_name from tbl_book where \"book_id\"=#{bookId}")
@@ -38,5 +35,5 @@ public interface BookDetailMapper {
             "as authorName from tbl_book tb inner join tbl_category tc on tb.category_id=tc.category_id inner join\n" +
             "tbl_book_author tba on tb.book_id = tba.book_book_id inner join tbl_author ta on tba.author_author_id\n" +
             "= ta.author_id order by tb.book_id")
-    List<BookDetailResponsePojo> getAllBook();
+    List<BookDetailsPojo> getAllBook();
 }

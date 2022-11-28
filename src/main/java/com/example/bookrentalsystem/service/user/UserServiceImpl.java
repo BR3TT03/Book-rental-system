@@ -49,8 +49,6 @@ public class UserServiceImpl implements UserService {
     public UserDetailResponsePojo getUserByUserName(String userName) {
         return userDetailMapper.findUserByUserName(userName);
     }
-
-
     @Override
     public void saveUserDetails(UserDetailRequestPojo userDetailRequestPojo) {
         User user = null;

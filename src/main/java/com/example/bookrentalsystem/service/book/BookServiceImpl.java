@@ -5,21 +5,19 @@ import com.example.bookrentalsystem.mapper.BookDetailMapper;
 import com.example.bookrentalsystem.model.Author;
 import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.model.Category;
-import com.example.bookrentalsystem.pojo.book.BookDetailIdNameResponsePojo;
-import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
-import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
+import com.example.bookrentalsystem.pojo.book.*;
 import com.example.bookrentalsystem.repository.AuthorRepository;
 import com.example.bookrentalsystem.repository.BookRepository;
 import com.example.bookrentalsystem.repository.CategoryRepository;
 import com.example.bookrentalsystem.util.FileExtensionValidatior;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -49,7 +47,7 @@ public class BookServiceImpl implements BookService {
      */
 
     @Override
-    public BookDetailResponsePojo getBookById(Integer bookId) throws AppException {
+    public BookDetailsPojo getBookById(Integer bookId) throws AppException {
         return bookDetailMapper.getBookById(bookId).orElseThrow(()->new AppException("Book doesnot exist by given id."));
 
     }
@@ -87,8 +85,24 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public List<BookDetailResponsePojo> getBook() {
-        return bookDetailMapper.getAllBook();
+    public List<BookDetailsResponsePojo> getBook() {
+        List<BookDetailsPojo> allBook = bookDetailMapper.getAllBook();
+        List<BookDetailsResponsePojo> bookDetailsResponsePojo=new ArrayList<>();
+
+        Map<Integer, List<BookDetailsPojo>> groupByBookId = allBook.stream().collect(Collectors.groupingBy(BookDetailsPojo::getBookId));
+        groupByBookId.forEach((k,v)->{
+            BookDetailsResponsePojo bookDetailsResponsePojoTemp=new BookDetailsResponsePojo();
+            List<AuthorBasicDetailPojo> authorBasicDetailPojoListTemp=new ArrayList<>();
+             BeanUtils.copyProperties(v.get(0),bookDetailsResponsePojoTemp);
+             v.forEach(bookDetailsPojo -> {
+                 authorBasicDetailPojoListTemp.add(AuthorBasicDetailPojo.builder()
+                         .authorId(bookDetailsPojo.getAuthorId()).authorName(bookDetailsPojo.getAuthorName()).build());
+             });
+             bookDetailsResponsePojoTemp.setAuthorDetails(authorBasicDetailPojoListTemp);
+             bookDetailsResponsePojo.add(bookDetailsResponsePojoTemp);
+
+        });
+        return bookDetailsResponsePojo;
     }
 
     @Transactional

@@ -1,11 +1,8 @@
 package com.example.bookrentalsystem.mapper;
 
-import com.example.bookrentalsystem.pojo.book.BookDetailResponsePojo;
 import com.example.bookrentalsystem.pojo.bookTransaction.BookTransactionDetailResponsePojo;
-import com.example.bookrentalsystem.pojo.member.MemberDetailResponsePojo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;

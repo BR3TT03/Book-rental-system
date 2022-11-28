@@ -13,7 +13,6 @@ public class AuthorDetailResponsePojo {
     private Integer authorId;
     private String authorEmail;
     private String authorMobile;
-
     private  String authorName;
 
 
