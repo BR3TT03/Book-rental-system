@@ -7,9 +7,11 @@ import com.example.bookrentalsystem.pojo.author.AuthorDetailRequestPojo;
 import com.example.bookrentalsystem.pojo.author.AuthorDetailResponsePojo;
 import com.example.bookrentalsystem.repository.AuthorRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,7 @@ public class AuthorServiceImpl implements AuthorService {
         return authorDetailMapper.getAllAuthor();
     }
 
+
     @Override
     public void deleteAuthorById(Integer authorId) throws AppException {
         Optional<Author> exists=authorRepository.findById(authorId);
@@ -46,6 +49,11 @@ public class AuthorServiceImpl implements AuthorService {
             authorRepository.deleteById(authorId);
         }
     }
+
+    @Override
+    public Page<Author> findAllAuthor(Pageable pageable) {
+        return authorRepository.findAll(new PageRequest(pageable.getPageNumber() - 1,5 ));
+      }
 
     @Override
     public AuthorDetailResponsePojo getAuthorById(Integer authorId) throws AppException {
