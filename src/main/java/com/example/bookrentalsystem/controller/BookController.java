@@ -1,10 +1,13 @@
 package com.example.bookrentalsystem.controller;
 
 import com.example.bookrentalsystem.globalException.AppException;
+import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.pojo.api.ApiResponse;
 import com.example.bookrentalsystem.pojo.api.BaseController;
 import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.book.BookDetailsResponsePojo;
 import com.example.bookrentalsystem.service.book.BookService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -61,5 +64,11 @@ public class BookController extends BaseController {
         bookService.deleteBookById(bookId);
         return success(get("data.delete","Book"),null);
     }
+
+    @RequestMapping(value = "/pagination-and-sorting/{pageNumber}/{pageSize}",method = RequestMethod.GET)
+    public Page<Book> bookDetailsResponsePojoPage(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
+        return bookService.getAllBookPage( pageNumber, pageSize);
+    }
+
 }
 

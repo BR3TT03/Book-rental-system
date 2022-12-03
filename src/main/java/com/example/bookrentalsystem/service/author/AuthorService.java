@@ -16,5 +16,5 @@ public interface AuthorService {
 
      void  deleteAuthorById(Integer authorId) throws AppException;
 
-     Page<Author> findAllAuthor(Pageable pageable);
+//     Page<Author> findAllAuthor(Pageable pageable);
 }

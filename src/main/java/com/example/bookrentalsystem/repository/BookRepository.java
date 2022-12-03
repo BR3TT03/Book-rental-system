@@ -1,13 +1,14 @@
 package com.example.bookrentalsystem.repository;
 
 import com.example.bookrentalsystem.model.Book;
+import com.example.bookrentalsystem.pojo.book.BookDetailsPojo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface BookRepository extends JpaRepository<Book,Integer> {
+public interface BookRepository extends JpaRepository<Book,Integer>  {
     @Modifying
     @Query(value = "update  tbl_book set stock_count =stock_count-1 where \"book_id\"=?1",nativeQuery = true)
     void updateBookRent(Integer bookId);

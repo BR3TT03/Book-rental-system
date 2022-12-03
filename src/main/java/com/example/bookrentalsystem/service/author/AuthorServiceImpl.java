@@ -50,10 +50,10 @@ public class AuthorServiceImpl implements AuthorService {
         }
     }
 
-    @Override
-    public Page<Author> findAllAuthor(Pageable pageable) {
-        return authorRepository.findAll(new PageRequest(pageable.getPageNumber() - 1,5 ));
-      }
+//    @Override
+//    public Page<Author> findAllAuthor(Pageable pageable) {
+//        return authorRepository.findAll(new PageRequest(pageable.getPageNumber() - 1,5 ));
+//      }
 
     @Override
     public AuthorDetailResponsePojo getAuthorById(Integer authorId) throws AppException {
