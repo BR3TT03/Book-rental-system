@@ -35,6 +35,7 @@ public class BookDetailsResponsePojo {
 
     private String categoryName;
 
+
     private List<AuthorBasicDetailPojo> authorDetails;
 
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AuthorService {
     AuthorDetailResponsePojo getAuthorById(Integer authorId) throws AppException;
@@ -15,6 +16,8 @@ public interface AuthorService {
      List<AuthorDetailResponsePojo> getAuthor();
 
      void  deleteAuthorById(Integer authorId) throws AppException;
+
+    Page<Map<String,Object>> getAllAuthorPage(Integer pageNumber, Integer pageSize);
 
 //     Page<Author> findAllAuthor(Pageable pageable);
 }

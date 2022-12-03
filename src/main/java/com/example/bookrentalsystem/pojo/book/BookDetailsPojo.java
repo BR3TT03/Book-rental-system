@@ -2,17 +2,15 @@ package com.example.bookrentalsystem.pojo.book;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 import lombok.Setter;
-import org.springframework.stereotype.Service;
+
 
 import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-@Service
 public class BookDetailsPojo {
     private Integer bookId;
 
@@ -27,7 +25,7 @@ public class BookDetailsPojo {
     private Date publishedDate;
 
 
-    private double rating;
+    private Double rating;
 
 
     private Integer stockCount;

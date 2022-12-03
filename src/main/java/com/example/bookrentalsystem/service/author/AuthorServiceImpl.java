@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -48,6 +49,12 @@ public class AuthorServiceImpl implements AuthorService {
         else if (exists.isPresent()){
             authorRepository.deleteById(authorId);
         }
+    }
+
+    @Override
+    public Page<Map<String,Object>> getAllAuthorPage(Integer pageNumber, Integer pageSize) {
+        Pageable pageable= PageRequest.of(pageNumber,pageSize);
+        return authorRepository.findAllAuthor(pageable);
     }
 
 //    @Override

@@ -5,6 +5,7 @@ import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.pojo.api.ApiResponse;
 import com.example.bookrentalsystem.pojo.api.BaseController;
 import com.example.bookrentalsystem.pojo.book.BookDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.book.BookDetailsPojo;
 import com.example.bookrentalsystem.pojo.book.BookDetailsResponsePojo;
 import com.example.bookrentalsystem.service.book.BookService;
 import org.springframework.data.domain.Page;
