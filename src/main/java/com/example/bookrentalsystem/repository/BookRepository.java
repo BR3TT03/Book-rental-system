@@ -44,8 +44,4 @@ public interface BookRepository extends JpaRepository<Book,Integer>  {
             "tbl_book_author tba on tb.book_id = tba.book_book_id inner join tbl_author ta on tba.author_author_id\n" +
             "= ta.author_id order by tb.book_id)",nativeQuery = true)
     List<BookDetailsResponsePojo> getAllBooks();
-
-//    Optional<Object> findBookById(Integer bookId);
-////    @Query(value = "update  tbl_book set stock_count =stock_count-1 where \"book_id\"=?1",nativeQuery = true)
-////    Optional<Book> updateBookReturn(Integer bookId);
 }

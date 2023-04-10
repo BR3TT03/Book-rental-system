@@ -14,6 +14,4 @@ public class AuthorDetailResponsePojo {
     private String authorEmail;
     private String authorMobile;
     private  String authorName;
-
-
 }

@@ -1,4 +1,5 @@
 package com.example.bookrentalsystem.repository.user;
+
 import com.example.bookrentalsystem.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

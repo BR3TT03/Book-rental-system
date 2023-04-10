@@ -11,13 +11,13 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Map;
 
-public interface AuthorRepository extends JpaRepository<Author,Integer> {
+public interface AuthorRepository extends JpaRepository<Author, Integer> {
     List<Author> findAll();
 
-    @Query(value ="select * from (select author_id as authorId,author_email as authorEmail,\n" +
+    @Query(value = "select * from (select author_id as authorId,author_email as authorEmail,\n" +
             "            author_phone_no as authorMobile,author_name as authorName\n" +
-            "             from tbl_author tba order by author_id) tba",nativeQuery = true,countQuery = "select count(*) from (select author_id as authorId,author_email as authorEmail,\n" +
+            "             from tbl_author tba order by author_id) tba", nativeQuery = true, countQuery = "select count(*) from (select author_id as authorId,author_email as authorEmail,\n" +
             "            author_phone_no as authorMobile,author_name as authorName\n" +
             "             from tbl_author tba order by author_id) tba")
-    Page<Map<String,Object>> findAllAuthor(Pageable pageable);
+    Page<Map<String, Object>> findAllAuthor(Pageable pageable);
 }

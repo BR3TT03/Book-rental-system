@@ -7,6 +7,7 @@ import com.example.bookrentalsystem.pojo.api.BaseController;
 import com.example.bookrentalsystem.pojo.author.AuthorDetailRequestPojo;
 import com.example.bookrentalsystem.pojo.author.AuthorDetailResponsePojo;
 import com.example.bookrentalsystem.service.author.AuthorService;
+import com.example.bookrentalsystem.service.author.AuthorServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,8 +24,6 @@ import javax.validation.Valid;
 @RequestMapping("bookrental/author")
 public class AuthorController extends BaseController {
     private final AuthorService authorService;
-
-
 
     /**
      * It returns all data from databases.

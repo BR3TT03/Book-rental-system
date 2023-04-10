@@ -7,6 +7,7 @@ import com.example.bookrentalsystem.pojo.author.AuthorDetailRequestPojo;
 import com.example.bookrentalsystem.pojo.author.AuthorDetailResponsePojo;
 import com.example.bookrentalsystem.repository.AuthorRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -42,18 +44,17 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteAuthorById(Integer authorId) throws AppException {
-        Optional<Author> exists=authorRepository.findById(authorId);
-        if (!exists.isPresent()){
-            throw new AppException(("Author with given author id" + authorId+" doesnot exist"));
-        }
-        else if (exists.isPresent()){
+        Optional<Author> exists = authorRepository.findById(authorId);
+        if (!exists.isPresent()) {
+            throw new AppException(("Author with given author id" + authorId + " doesnot exist"));
+        } else if (exists.isPresent()) {
             authorRepository.deleteById(authorId);
         }
     }
 
     @Override
-    public Page<Map<String,Object>> getAllAuthorPage(Integer pageNumber, Integer pageSize) {
-        Pageable pageable= PageRequest.of(pageNumber,pageSize);
+    public Page<Map<String, Object>> getAllAuthorPage(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return authorRepository.findAllAuthor(pageable);
     }
 

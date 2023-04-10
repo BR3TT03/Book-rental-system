@@ -25,16 +25,13 @@ public class BookDetailsResponsePojo {
 
     private Date publishedDate;
 
-
     private Double rating;
-
 
     private Integer stockCount;
 
     private Integer categoryId;
 
     private String categoryName;
-
 
     private List<AuthorBasicDetailPojo> authorDetails;
 

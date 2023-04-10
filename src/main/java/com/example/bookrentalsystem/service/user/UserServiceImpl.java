@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
     public UserDetailResponsePojo getUserByUserName(String userName) {
         return userDetailMapper.findUserByUserName(userName);
     }
+
     @Override
     public void saveUserDetails(UserDetailRequestPojo userDetailRequestPojo) {
         User user = null;
@@ -57,6 +58,7 @@ public class UserServiceImpl implements UserService {
         user = objectMapper.convertValue(userDetailRequestPojo, User.class);
         user.setPassword(passwordEncoder.encode(userDetailRequestPojo.getPassword()));
         userRepo.save(user);
+        userRepo.findUserByUserName(userDetailRequestPojo.getUserName());
     }
 
     @Override
