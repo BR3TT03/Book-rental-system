@@ -38,7 +38,6 @@ public class BookTransactionServiceImpl implements BookTransactionService {
     private final ObjectMapper objectMapper;
 
 
-
     public BookTransactionServiceImpl(BookRepository bookRepository, MemberRepository memberRepository, BookTransactionRepository bookTransactionRepository,
                                       BookTransactionDetailRequestPojo bookTransactionDetailRequestPojo,
                                       BookTransactionDetailMapper bookTransactionDetailMapper, ObjectMapper objectMapper, ApiResponse apiResponse, BookDetailMapper bookDetailMapper) {
@@ -52,14 +51,14 @@ public class BookTransactionServiceImpl implements BookTransactionService {
     }
 
     @Override
-    public Object getBookTransactionById(Integer bookTransactionId) {
-        return bookTransactionRepository.findById(bookTransactionId);
+    public BookTransactionDetailResponsePojo getBookTransactionById(Integer bookTransactionId) throws AppException {
+        return bookTransactionDetailMapper.getBookTransactionByTransactionId(bookTransactionId).orElseThrow(()->new AppException("Book transaction does not exist by given id."));
     }
 
 
     @Override
-    public List<BookTransaction> getBookTransaction() {
-        return bookTransactionRepository.findAll();
+    public List<BookTransactionDetailResponsePojo> getBookTransaction() {
+        return bookTransactionDetailMapper.getAllTransaction();
     }
 
 
@@ -105,24 +104,14 @@ public class BookTransactionServiceImpl implements BookTransactionService {
       }
        else if (bookTransactionDetailRequestPojo.getRentType().toString().equalsIgnoreCase("RETURN")) {
             LocalDate returnDate =java.time.LocalDate.now();
-          Boolean rentStatus = bookTransactionDetailMapper.getReturnStatus(bookTransactionDetailRequestPojo.getMemberId(),bookTransactionDetailRequestPojo.getBookId());
-          if (rentStatus==null) {
-              throw new AppException("No Book Rented for given member id from the given book id.");
-
-          }
-          else if (!rentStatus) {
-              throw new AppException("Already returned");
-
-          }
-          bookTransactionRepository.updateBookReturnTransaction(returnDate,bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
+           bookTransactionRepository.updateBookReturnTransaction(returnDate,bookTransactionDetailRequestPojo.getBookId(),bookTransactionDetailRequestPojo.getMemberId());
            bookRepository.updateBookReturn(bookTransactionDetailRequestPojo.getBookId());
       }
     }
 
     @Override
-    public List<BookTransactionDetailResponsePojo> getBookTransactionByMemberId(Integer memberId) {
-            return bookTransactionDetailMapper.getBookTransactionByMemberId(memberId);
-
+    public List<BookTransactionDetailResponsePojo> getBookTransactionByMemberId(Integer memberId) throws AppException {
+                return bookTransactionDetailMapper.getBookTransactionByMemberId(memberId).orElseThrow(()->new AppException("Book Transaction does not exist by given member id"));
     }
 
     @Transactional

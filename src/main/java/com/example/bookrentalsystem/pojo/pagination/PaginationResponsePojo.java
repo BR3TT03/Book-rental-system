@@ -1,5 +1,4 @@
-package com.example.bookrentalsystem.pojo;
-
+package com.example.bookrentalsystem.pojo.pagination;
 public class PaginationResponsePojo {
     private Object data;
     private Integer totalPages;

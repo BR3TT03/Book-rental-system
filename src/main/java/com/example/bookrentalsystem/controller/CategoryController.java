@@ -26,7 +26,7 @@ public class CategoryController extends BaseController {
         return success(get("data.save","Category"), null);
     }
     @GetMapping("/{categoryid}")
-    public ApiResponse getCategoryById(@PathVariable(name = "categoryid") Integer categoryId) {
+    public ApiResponse getCategoryById(@PathVariable(name = "categoryid") Integer categoryId) throws AppException {
         return success(get("data.get","Category"), categoryService.getCategoryById(categoryId));
     }
 

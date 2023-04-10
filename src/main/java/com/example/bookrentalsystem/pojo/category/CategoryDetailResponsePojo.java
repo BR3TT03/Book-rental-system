@@ -11,8 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CategoryDetailResponsePojo {
     private  Integer categoryId;
-
+    private  String categoryDescription;
     private  String categoryName;
 
-    private  String categoryDescription;
 }

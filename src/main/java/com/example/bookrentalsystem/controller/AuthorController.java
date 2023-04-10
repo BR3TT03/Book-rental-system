@@ -1,12 +1,16 @@
 package com.example.bookrentalsystem.controller;
 
 import com.example.bookrentalsystem.globalException.AppException;
+import com.example.bookrentalsystem.model.Book;
 import com.example.bookrentalsystem.pojo.api.ApiResponse;
 import com.example.bookrentalsystem.pojo.api.BaseController;
 import com.example.bookrentalsystem.pojo.author.AuthorDetailRequestPojo;
+import com.example.bookrentalsystem.pojo.author.AuthorDetailResponsePojo;
 import com.example.bookrentalsystem.service.author.AuthorService;
+import com.example.bookrentalsystem.service.author.AuthorServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,8 +24,6 @@ import javax.validation.Valid;
 @RequestMapping("bookrental/author")
 public class AuthorController extends BaseController {
     private final AuthorService authorService;
-
-
 
     /**
      * It returns all data from databases.
@@ -40,7 +42,7 @@ public class AuthorController extends BaseController {
     }
 
     @GetMapping("/{authorid}")
-    public ApiResponse getAuthorById(@PathVariable(name = "authorid") Integer authorId) {
+    public ApiResponse getAuthorById(@PathVariable(name = "authorid") Integer authorId) throws AppException {
         return success(get("data.get","Author"), authorService.getAuthorById(authorId));
     }
 
@@ -48,5 +50,10 @@ public class AuthorController extends BaseController {
     public ApiResponse deleteAuthorById(@PathVariable(name="authorid") Integer authorId) throws AppException {
         authorService.deleteAuthorById(authorId);
         return success(get("data.delete"," Author"),null);
+    }
+
+    @GetMapping(value = "/pagination-and-sorting/{pageNumber}/{pageSize}")
+    public ApiResponse authorDetailsResponsePojoPage(@PathVariable Integer pageNumber, @PathVariable Integer pageSize){
+        return success(get("data.get","Author"),authorService.getAllAuthorPage( pageNumber, pageSize));
     }
 }

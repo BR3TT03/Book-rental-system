@@ -16,11 +16,12 @@ import org.springframework.stereotype.Service;
 public class MemberDetailResponsePojo {
 
     private  Integer memberId;
+    private String address;
 
     private  String email;
 
     private String mobileNo;
+    private String name;
 
-    private String address;
 }
 
