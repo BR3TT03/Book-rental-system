@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
         ),
         servers = {
                 @Server(
-                        url="https://book-rental-system-production-ba0c.up.railway.app",
+                        url="https://book-rental-aew6.onrender.com",
                         description = "Production Server"
                 )
         }
